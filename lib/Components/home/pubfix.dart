@@ -53,7 +53,7 @@ class FixPub extends StatelessWidget {
                       ),
                       Column(children: [
                         const SizedBox(height: 20,),
-                        Image.asset('assets/fyta.png')
+                        Image.asset('assets/fyta.png'),
                       ],)
                         
                       

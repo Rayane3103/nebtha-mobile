@@ -63,6 +63,12 @@ flutter:
     - assets/logo1.png
     - assets/video.png
     - assets/fyta.png
+    - assets/alaune1.png
+    - assets/ramadan.png
+    - assets/cosme.png
+    - assets/1.png
+    - assets/2.png
+    - assets/3.png
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

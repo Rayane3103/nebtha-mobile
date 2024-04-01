@@ -45,7 +45,7 @@ int _selectedIndex=0;
         onTap: _onTappedItem,
         selectedItemColor: primaryColor,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Acceuil'),
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled),label: 'Acceuil'),
           BottomNavigationBarItem(icon: Icon(Icons.eco),label: 'Shop'),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_rounded),label: 'Panier'),
         ]
