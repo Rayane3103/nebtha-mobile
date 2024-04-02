@@ -9,7 +9,7 @@ class Advice extends StatelessWidget {
               padding: const EdgeInsets.only(left:4.0),
               child: SizedBox(
         
-                height: 170,
+                height: 150,
                 child: ListView(
                 scrollDirection: Axis.horizontal,
                  children:   const [
@@ -31,7 +31,7 @@ class AdviceComp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.only(right: 4.0,left: 4),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: Container(
@@ -40,10 +40,7 @@ class AdviceComp extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         ),
-                      child:Image.network(
-                              'https://i.postimg.cc/0QzNcHnq/2.png',
-                               fit: BoxFit.cover,
-                            ),
+                      child:Image.asset('assets/1.png')
                           ),
                         ),
                       );

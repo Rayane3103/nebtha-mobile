@@ -17,7 +17,7 @@ class FixPub extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.4,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Padding(
-                  padding: const EdgeInsets.only(top:15.0,right: 20,bottom: 15,left: 15),
+                  padding: const EdgeInsets.only(right: 20,left: 15),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

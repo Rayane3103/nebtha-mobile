@@ -9,7 +9,7 @@ class Offres extends StatelessWidget {
               padding: const EdgeInsets.only(left:4.0),
               child: SizedBox(
         
-                height: 200,
+                height: 180,
                 child: ListView(
                 scrollDirection: Axis.horizontal,
                  children:   const [
@@ -31,7 +31,7 @@ class OffreComp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.only(right: 4.0,left: 4),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: Container(

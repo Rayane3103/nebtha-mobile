@@ -15,7 +15,6 @@ class Promotions extends StatelessWidget {
               ],
             ),
             const Offres(),
-            SizedBox(height: MediaQuery.of(context).size.height*0.02,),
             const Row(
               children: [
                 SizedBox(width: 15,),
@@ -26,8 +25,8 @@ class Promotions extends StatelessWidget {
               
               ],
             ),
-            const SizedBox(height: 15,),
-            
+           
+            SizedBox(height: MediaQuery.of(context).size.height*0.0025,),
 const CodePromos(),
 
 ],);

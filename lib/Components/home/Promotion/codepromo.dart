@@ -41,7 +41,7 @@ class CodePromosComp extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         ),
-                      child:Image.asset('assets/ramadan.png',fit: BoxFit.cover,)
+                      child:Image.asset('assets/ramadan.png',fit: BoxFit.fitWidth,)
                           ),
                         ),
                       );
