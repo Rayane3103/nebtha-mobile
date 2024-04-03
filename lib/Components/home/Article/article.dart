@@ -105,7 +105,7 @@ class _ArticleState extends State<Article> {
       ),
     ),
   ),
-  const SizedBox(width: 20,),
+  SizedBox(width:  MediaQuery.of(context).size.width*0.01,),
   IconButton(
     onPressed: () {
       setState(() {
@@ -114,7 +114,7 @@ class _ArticleState extends State<Article> {
     },
     icon: isLiked ? const Icon(Icons.favorite, size: 30, color: primaryColor) : const Icon(Icons.favorite_outline, size: 30, color: primaryColor),
   ),
-  SizedBox(width: MediaQuery.of(context).size.height * 0.05,),
+  SizedBox(width: MediaQuery.of(context).size.height * 0.015,),
   const Icon(Icons.calendar_today, color: Colors.grey,),
   SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
   Text(DateFormat('yyyy-MM-dd').format(widget.date))
