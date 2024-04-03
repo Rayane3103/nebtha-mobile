@@ -22,8 +22,9 @@ class _MyMainWidgetState extends State<MyMainWidget> {
  
 final List _items = [
   const HomePage(),
+  const PlantsPage(),
   const CartPage(),
-  const PlantsPage()
+  
   
 ];
 
