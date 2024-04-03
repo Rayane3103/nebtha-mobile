@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:nebtha/Constants/design.dart';
 
 class CodePromos extends StatefulWidget {
   const CodePromos({super.key});
@@ -24,19 +25,25 @@ class _CodePromosState extends State<CodePromos> {
   final response = await http.get(Uri.parse('https://nebta.onrender.com/api/CodePromo'));
   
   if (response.statusCode == 200) {
-      final List<dynamic> jsonData = json.decode(response.body);
-      List<String> imageUrls = [];
+    final List<dynamic> jsonData = json.decode(response.body);
+    List<String> imageUrls = [];
 
-      for (var news in jsonData) {
-        String imageUrl = news['Image'];
+    for (var codes in jsonData) {
+      dynamic imageValue = codes['Image'];
+      if (imageValue != null && imageValue is String) {
+        String imageUrl = imageValue;
         imageUrls.add(imageUrl);
+      } else {
+        print('Skipping null or unexpected type for image URL.');
       }
-
-      return imageUrls;
-    } else {
-      throw Exception('Failed to load image URLs');
     }
+
+    return imageUrls;
+  } else {
+    throw Exception('Failed to load image URLs');
+  }
 }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +55,21 @@ class _CodePromosState extends State<CodePromos> {
           future: _imageUrlsFuture,
           builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return  ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left:4.0, right: 4.0),
+                    child: Container(
+                              height: MediaQuery.of(context).size.width * 0.4,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 227, 227, 227),
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                  );
+                },
               );
             } else if (snapshot.hasError) {
               return Center(
@@ -78,11 +98,10 @@ class CodePromosComp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Decode base64 string to Uint8List
     Uint8List bytes = base64Decode(imageUrl.split(',').last);
 
     return Padding(
-      padding: const EdgeInsets.only(right: 4.0, left: 4),
+      padding: const EdgeInsets.only(right: 8.0, left: 8),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: Container(

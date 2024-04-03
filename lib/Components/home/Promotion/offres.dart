@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:nebtha/Constants/design.dart';
 
 class Offres extends StatefulWidget {
   const Offres({super.key});
@@ -48,8 +49,21 @@ class _OffresState extends State<Offres> {
           future: _imageUrlsFuture,
           builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return  ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left:8.0, right: 8.0),
+                    child: Container(
+                              height: MediaQuery.of(context).size.width * 0.4,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 227, 227, 227),
+                                borderRadius: BorderRadius.circular(25),
+                              )),
+                  );
+                },
               );
             } else if (snapshot.hasError) {
               return Center(

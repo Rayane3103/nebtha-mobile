@@ -66,6 +66,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      surfaceTintColor: Colors.transparent,
       iconTheme: const IconThemeData(color: primaryColor),
         actions: [IconButton(onPressed: (){
           setState(() {
