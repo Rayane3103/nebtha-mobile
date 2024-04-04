@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:nebtha/Components/purchase_button.dart';
 import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/description_page.dart';
 
@@ -36,7 +38,58 @@ class _ProductCardState extends State<ProductCard> {
                 borderRadius: BorderRadius.circular(18),
                 color: const Color.fromARGB(255, 198, 233, 203),
               ),
-              child: Image.asset("assets/11.png"),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return DescriptionPage();
+                                }),
+                              );
+                            },
+                            child: Icon(Icons.info_outline)),
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.03,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
+                                child: Icon(
+                                  Icons.circle,
+                                  color: Colors.teal.shade900,
+                                  size: 15,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                child: Text(
+                                  'recommandé',
+                                  style: TextStyle(
+                                      color: Colors.teal.shade900,
+                                      fontSize: 14),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Image.asset("assets/11.png"),
+                ],
+              ),
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(12.0, 5, 0, 0),
@@ -86,11 +139,11 @@ class _ProductCardState extends State<ProductCard> {
                           color: Colors.grey[600],
                         ),
                       ),
-                      Text(
+                      const Text(
                         'plus de detail',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          color: Colors.grey[600],
+                          color: Colors.black,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
@@ -123,33 +176,7 @@ class _ProductCardState extends State<ProductCard> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.005,
             ),
-            InkWell(
-              onTap: () {
-                print('purchase button');
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 0, 12, 0),
-                child: Container(
-                  width: 130,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 2,
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(30),
-                      color: const Color.fromARGB(255, 185, 229, 187)),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('purchase'),
-                      Icon(Icons.shopping_cart),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            PurchaseButton(),
           ],
         ),
       ),
