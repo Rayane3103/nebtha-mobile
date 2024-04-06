@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:nebtha/Components/purchase_button.dart';
+import 'package:nebtha/Components/plants%20page/like_button.dart';
+import 'package:nebtha/Components/plants%20page/nocif.dart';
+import 'package:nebtha/Components/plants%20page/purchase_button.dart';
+import 'package:nebtha/Components/plants%20page/recommande.dart';
 import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/description_page.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({super.key});
-
+  const ProductCard({super.key, required this.reco});
+  final bool reco;
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
@@ -55,35 +57,7 @@ class _ProductCardState extends State<ProductCard> {
                               );
                             },
                             child: Icon(Icons.info_outline)),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.03,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
-                                child: Icon(
-                                  Icons.circle,
-                                  color: Colors.teal.shade900,
-                                  size: 15,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                child: Text(
-                                  'recommandé',
-                                  style: TextStyle(
-                                      color: Colors.teal.shade900,
-                                      fontSize: 14),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
+                        if (widget.reco == true) Recommandation() else Nocif()
                       ],
                     ),
                   ),
@@ -176,7 +150,16 @@ class _ProductCardState extends State<ProductCard> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.005,
             ),
-            PurchaseButton(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PurchaseButton(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 7.5, 5, 0),
+                  child: LikeButton(),
+                )
+              ],
+            ),
           ],
         ),
       ),

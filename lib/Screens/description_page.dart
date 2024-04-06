@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:nebtha/Components/purchase_button.dart';
+import 'package:nebtha/Components/plants%20page/like_button.dart';
+import 'package:nebtha/Components/plants%20page/purchase_text_button.dart';
 import 'package:nebtha/Constants/design.dart';
 
 class DescriptionPage extends StatefulWidget {
@@ -43,14 +43,17 @@ class _DescriptionPageState extends State<DescriptionPage> {
               height: MediaQuery.of(context).size.height * 0.45,
               width: MediaQuery.of(context).size.width * 1,
               padding: const EdgeInsets.all(12),
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(22),
                       topRight: Radius.circular(22)),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                        blurRadius: 3, spreadRadius: 1, offset: Offset(0, -1)),
+                        color: Colors.grey.shade500,
+                        blurRadius: 15,
+                        spreadRadius: 4,
+                        offset: const Offset(0, -1)),
                   ]),
               child: SingleChildScrollView(
                 child: Column(
@@ -77,18 +80,13 @@ class _DescriptionPageState extends State<DescriptionPage> {
               height: MediaQuery.of(context).size.height * 0.09494,
               width: MediaQuery.of(context).size.width * 1,
               color: Colors.white,
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PurchaseButton(),
+                  PurchaseTextButton(),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(23.0, 0, 12, 0),
-                    child: IconButton(
-                      onPressed: () {
-                        print('liked');
-                      },
-                      icon: Icon(Icons.favorite_border),
-                    ),
+                    padding: EdgeInsets.fromLTRB(23.0, 0, 25, 0),
+                    child: LikeButton(),
                   )
                 ],
               ),
