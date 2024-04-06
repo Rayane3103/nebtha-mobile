@@ -1,78 +1,89 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nebtha/Components/solid_powder.dart';
+import 'package:flutter/widgets.dart';
+import 'package:nebtha/Components/Slider.dart';
+import 'package:nebtha/Components/card_widget.dart';
 import 'package:nebtha/Constants/design.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
   @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  final List<Widget> widgetList = const [
+    CardWidget(
+      prix: 2000,
+    ),
+    CardWidget(
+      prix: 500,
+    ),
+    CardWidget(
+      prix: 2000,
+    ),
+    CardWidget(
+      prix: 1000,
+    ),
+  ];
+  int afficherprix(List<CardWidget> cardWidgets) {
+    int sum = 0;
+    for (CardWidget cardWidget in cardWidgets) {
+      sum += cardWidget.prix;
+    }
+    return sum;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(30, 8, 0, 8),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-              color: Colors.grey.shade600,
-            ))),
-            height: MediaQuery.of(context).size.height * 0.2,
-            width: MediaQuery.of(context).size.width * 0.85,
-            child: Row(
-              children: [
-                Image.asset('assets/11.png'),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 15),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Menth',
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Text('price'),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyButtonRow(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 23, 0, 30),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.delete_outline_rounded,
-                          color: Colors.grey[600],
-                        ),
-                        const Icon(
-                          Icons.add_box_rounded,
-                          color: primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+    List<CardWidget> cardWidgets = widgetList.cast<CardWidget>();
+    int sum = afficherprix(cardWidgets);
+    return Column(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height * 0.66,
+          width: MediaQuery.of(context).size.width * 1,
+          child: SingleChildScrollView(
+            child: Column(
+              children: widgetList,
             ),
           ),
-        ],
-      ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.33,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Total',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '$sum DA',
+                      style: const TextStyle(
+                          color: primaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            MySlider(),
+          ],
+        ),
+      ],
     );
   }
 }
