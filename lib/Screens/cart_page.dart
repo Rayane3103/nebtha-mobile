@@ -1,8 +1,4 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nebtha/Components/Slider.dart';
 import 'package:nebtha/Components/card_widget.dart';
 import 'package:nebtha/Constants/design.dart';
@@ -43,7 +39,7 @@ class _CartPageState extends State<CartPage> {
     int sum = afficherprix(cardWidgets);
     return Column(
       children: [
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height * 0.66,
           width: MediaQuery.of(context).size.width * 1,
           child: SingleChildScrollView(
@@ -80,7 +76,7 @@ class _CartPageState extends State<CartPage> {
                 ),
               ),
             ),
-            MySlider(),
+            const MySlider(),
           ],
         ),
       ],

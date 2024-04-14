@@ -20,7 +20,7 @@ class _MySliderState extends State<MySlider> {
           child: SlideAction(
             animationDuration: const Duration(milliseconds: 400),
             sliderButtonIconPadding: 8.0,
-            textStyle:const  TextStyle(
+            textStyle: const TextStyle(
                 fontWeight: FontWeight.w400, color: Colors.white, fontSize: 20),
             height: 50,
             outerColor: primaryColor,
