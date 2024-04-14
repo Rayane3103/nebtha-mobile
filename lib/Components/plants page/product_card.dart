@@ -56,7 +56,7 @@ class _ProductCardState extends State<ProductCard> {
                                 }),
                               );
                             },
-                            child: Icon(Icons.info_outline)),
+                            child: const Icon(Icons.info_outline)),
                         if (widget.reco == true) Recommandation() else Nocif()
                       ],
                     ),
@@ -132,7 +132,7 @@ class _ProductCardState extends State<ProductCard> {
                 const Padding(
                   padding: EdgeInsets.fromLTRB(12.0, 0, 12, 0),
                   child: Text(
-                    'price',
+                    '2500 da',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   //test
@@ -150,12 +150,12 @@ class _ProductCardState extends State<ProductCard> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.005,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 PurchaseButton(),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 7.5, 5, 0),
+                  padding: EdgeInsets.fromLTRB(0, 7.5, 5, 0),
                   child: LikeButton(),
                 )
               ],
