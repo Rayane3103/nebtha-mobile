@@ -13,7 +13,7 @@ class _CardComponentState extends State<CardComponent> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 23, 0, 30),
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.25,
         child: Center(
           child: Column(
@@ -54,10 +54,11 @@ class _CustomRowState extends State<CustomRow> {
   late int a = widget.grammage;
   void _decrementation() {
     setState(() {
-      if (a >= 100)
+      if (a >= 100) {
         a = a - 100;
-      else
+      } else {
         null;
+      }
     });
   }
 
@@ -76,13 +77,13 @@ class _CustomRowState extends State<CustomRow> {
             onTap: () {
               _decrementation();
             },
-            child: Icon(Icons.remove)),
+            child: const Icon(Icons.remove)),
         Text('$a g'),
         InkWell(
             onTap: () {
               _incrementation();
             },
-            child: Icon(
+            child: const Icon(
               Icons.add_box_rounded,
               color: primaryColor,
             )),

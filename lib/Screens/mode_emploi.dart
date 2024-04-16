@@ -22,7 +22,7 @@ class _InstructionPageState extends State<InstructionPage> {
           ],
         ),
       ),
-      body: Center(child: Text('Instruction Page ')),
+      body: const Center(child: Text('Instruction Page ')),
     );
   }
 }

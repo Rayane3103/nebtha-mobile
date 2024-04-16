@@ -14,7 +14,7 @@ class _MySliderState extends State<MySlider> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        final GlobalKey<SlideActionState> _key = GlobalKey();
+        final GlobalKey<SlideActionState> key = GlobalKey();
         return Padding(
           padding: const EdgeInsets.fromLTRB(8, 16, 8, 0),
           child: SlideAction(
@@ -30,8 +30,10 @@ class _MySliderState extends State<MySlider> {
             ),
             sliderRotate: false,
             text: '       confirmer votre panier',
-            key: _key,
-            onSubmit: () {},
+            key: key,
+            onSubmit: () {
+              return null;
+            },
           ),
         );
       },

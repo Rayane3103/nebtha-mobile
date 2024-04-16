@@ -1,19 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:nebtha/Components/plants%20page/list_of_two.dart';
+import 'package:http/http.dart' as http;
 import 'package:nebtha/Components/plants%20page/product_card.dart';
+import 'dart:convert';
 
-class PlantsPage extends StatelessWidget {
+class PlantsPage extends StatefulWidget {
   const PlantsPage({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Column(
-        children: [
-          RowOfTwo(w1: ProductCard(reco: false), w2: ProductCard(reco: true)),
-          RowOfTwo(w1: ProductCard(reco: true), w2: ProductCard(reco: false)),
-          RowOfTwo(w1: ProductCard(reco: false), w2: ProductCard(reco: false)),
-        ],
-      ),
-    );
+  _PlantsPageState createState() => _PlantsPageState();
+}
+
+class _PlantsPageState extends State<PlantsPage> {
+  List<Map<String, dynamic>> products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
   }
+
+  Future<void> fetchProducts() async {
+    final response =
+        await http.get(Uri.parse('https://nebta.onrender.com/api/product'));
+    if (response.statusCode == 200) {
+      setState(() {
+        products = List<Map<String, dynamic>>.from(json.decode(response.body));
+      });
+    } else {
+      throw Exception('Failed to load products');
+    }
+  }
+
+ @override
+Widget build(BuildContext context) {
+  return GridView.builder(
+    itemCount: products.length,
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      mainAxisExtent: MediaQuery.of(context).size.height * 0.43, 
+    ),
+    itemBuilder: (BuildContext context, int index) {
+      final product = products[index];
+      return ProductCard(
+        reco: false,
+        ProductName: product['ProductName'],
+        ProductArabicName: product['ProductArabicName'],
+        Productdesc: product['Productdesc'],
+        Price: product['Price'],
+        Image: product['Image'],
+      );
+    },
+  );
+}
 }

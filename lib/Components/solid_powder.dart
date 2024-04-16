@@ -2,33 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:nebtha/Constants/design.dart';
 
 class MyButtonRow extends StatefulWidget {
+  final bool isPowder;
+  final VoidCallback onToggle;
+
+  const MyButtonRow({
+    Key? key,
+    required this.isPowder,
+    required this.onToggle,
+  }) : super(key: key);
+
   @override
   _MyButtonRowState createState() => _MyButtonRowState();
 }
 
 class _MyButtonRowState extends State<MyButtonRow> {
-  bool _isRed = true; // color of solid button
-
-  void _toggleColor() {
-    setState(() {
-      _isRed = !_isRed;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         MyButton(
-          color: _isRed ? Colors.white : primaryColor,
-          textColor: _isRed ? primaryColor : Colors.white,
-          onPressed: _toggleColor,
+          color: widget.isPowder ? Colors.white : primaryColor,
+          textColor: widget.isPowder ? primaryColor : Colors.white,
+          onPressed: widget.onToggle,
           myText: 'Solid',
         ),
         MyButton(
-          color: _isRed ? primaryColor : Colors.white,
-          textColor: _isRed ? Colors.white : primaryColor,
-          onPressed: _toggleColor,
+          color: widget.isPowder ? primaryColor : Colors.white,
+          textColor: widget.isPowder ? Colors.white : primaryColor,
+          onPressed: widget.onToggle,
           myText: 'Powder',
         ),
       ],
@@ -43,12 +44,12 @@ class MyButton extends StatelessWidget {
   final String myText;
 
   const MyButton({
-    Key? key,
+    super.key,
     required this.color,
     required this.textColor,
     required this.onPressed,
     required this.myText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

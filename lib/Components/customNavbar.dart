@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/cart_page.dart';
 import 'package:nebtha/Screens/history_page.dart';
@@ -100,7 +99,7 @@ class _MyMainWidgetState extends State<MyMainWidget> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      WelcomePage())),
+                                                      const WelcomePage())),
                                           child: const Text('Oui'),
                                         ),
                                       ]);
@@ -140,29 +139,29 @@ class _MyMainWidgetState extends State<MyMainWidget> {
                 leading: const Icon(Icons.person_outline_rounded),
                 title: const Text('Mon Profile'),
                 onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()))),
+                    MaterialPageRoute(builder: (context) => const ProfilePage()))),
             ListTile(
                 leading: const Icon(Icons.favorite_border),
                 title: const Text('J\'aime'),
                 onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LikesPage()))),
+                    MaterialPageRoute(builder: (context) => const LikesPage()))),
             ListTile(
                 leading: const Icon(Icons.history),
                 title: const Text('Historique d\'achat'),
                 onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HistoryPage()))),
+                    MaterialPageRoute(builder: (context) => const HistoryPage()))),
             ListTile(
                 leading: const Icon(Icons.qr_code),
                 title: const Text('Mode d\'utilisation'),
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => InstructionPage()))),
+                        builder: (context) => const InstructionPage()))),
             ListTile(
                 leading: const Icon(Icons.settings),
                 title: const Text('Parametre'),
                 onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()))),
+                    MaterialPageRoute(builder: (context) => const SettingsPage()))),
             Divider(
               indent: 20,
               endIndent: 20,

@@ -17,12 +17,12 @@ class _PurchaseButtonState extends State<PurchaseButton> {
           context: context,
           builder: (context) {
             return AlertDialog(
-                title: Text('alert dialogue'),
+                title: const Text('alert dialogue'),
                 content: Container(
                   height: 150,
                   width: 100,
                   color: Colors.yellow[100],
-                  child: Center(child: Text('alert dialogue')),
+                  child: const Center(child: Text('alert dialogue')),
                 ),
                 actions: <Widget>[
                   TextButton(
@@ -41,15 +41,11 @@ class _PurchaseButtonState extends State<PurchaseButton> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10.0, 7, 0, 0),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.32,
-          height: MediaQuery.of(context).size.height * 0.035,
-          decoration: BoxDecoration(boxShadow: const [
-            BoxShadow(
-              spreadRadius: 1.5,
-              color: primaryColor,
-              blurRadius: 2,
-            )
-          ], borderRadius: BorderRadius.circular(30), color: Colors.white),
+          width: MediaQuery.of(context).size.width * 0.33,
+          height: MediaQuery.of(context).size.height * 0.034,
+          decoration: BoxDecoration( border: Border.all(
+      color: primaryColor,
+    ),borderRadius: BorderRadius.circular(30), color: Colors.white,),
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

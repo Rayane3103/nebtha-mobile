@@ -5,7 +5,6 @@ import 'package:nebtha/Components/home/pubfix.dart';
 import 'package:nebtha/Components/home/tapy_icon.dart';
 import 'package:nebtha/Components/home/Promotion/promotion.dart';
 import 'package:nebtha/Components/home/top_products/top.dart';
-import 'package:nebtha/Components/home/top_products/top_products.dart';
 
 class HomePage extends StatefulWidget {
    const HomePage({super.key});

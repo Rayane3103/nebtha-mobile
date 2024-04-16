@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:nebtha/Components/card_component.dart';
 import 'package:nebtha/Components/solid_powder.dart';
 import 'package:nebtha/Constants/design.dart';
 
 class CardWidget extends StatefulWidget {
-  const CardWidget({super.key, required this.prix});
-  final int prix;
+  final String ProductName;
+  bool isPowder; // Changed to non-final
+  final int Quantity;
+  final int Price;
+  final String MyImage;
+  CardWidget({super.key, 
+  
+    required this.ProductName,
+    required this.isPowder,
+    required this.Quantity,
+    required this.Price,
+    required this.MyImage,
+  });
+
   @override
   State<CardWidget> createState() => _CardWidgetState();
 }
 
 class _CardWidgetState extends State<CardWidget> {
+  _CardWidgetState();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,49 +32,57 @@ class _CardWidgetState extends State<CardWidget> {
         children: [
           Container(
             decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-              color: Colors.grey.shade600,
-            ))),
-            height: MediaQuery.of(context).size.height * 0.2,
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ),
+            height: MediaQuery.of(context).size.height * 0.175,
             width: MediaQuery.of(context).size.width * 0.9,
             child: Row(
               children: [
-                Image.asset(
-                  'assets/11.png',
-                  width: 100,
-                ),
+                Image.network(widget.MyImage, height: 50, width: 50),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 0, 15),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.37,
                     height: MediaQuery.of(context).size.height * 0.15,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Menth',
+                        Text(
+                          widget.ProductName,
                           style: TextStyle(
-                              color: primaryColor,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
+                            color: primaryColor,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                         Text(
-                          '${widget.prix}DA',
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        Text(
+                          '${widget.Price}DA',
+                          style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            MyButtonRow(),
+                            MyButtonRow(
+                              isPowder: widget.isPowder,
+                              onToggle: () {
+                                setState(() {
+                                  widget.isPowder = !widget.isPowder;
+                                  print('isPowder now is turned:${widget.isPowder}');
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                CardComponent(),
+                const CardComponent(),
               ],
             ),
           )

@@ -17,7 +17,7 @@ class WelcomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(child: Text('Welcome Page ')),
+      body: const Center(child: Text('Welcome Page ')),
     );
   }
 }

@@ -22,7 +22,7 @@ class _LikesPageState extends State<LikesPage> {
           ],
         ),
       ),
-      body: Center(child: Text('Likes Page ')),
+      body: const Center(child: Text('Likes Page ')),
     );
   }
 }

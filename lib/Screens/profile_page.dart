@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ),
-      body: Center(child: Text('Profile Page ')),
+      body: const Center(child: Text('Profile Page ')),
     );
   }
 }

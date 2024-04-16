@@ -11,24 +11,17 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  final List<Widget> widgetList = const [
-    CardWidget(
-      prix: 2000,
-    ),
-    CardWidget(
-      prix: 500,
-    ),
-    CardWidget(
-      prix: 2000,
-    ),
-    CardWidget(
-      prix: 1000,
-    ),
+  final List<Widget> widgetList =  [
+
+    CardWidget(ProductName: 'Menthe', isPowder: false, Quantity: 100, Price: 1500, MyImage: 'https://i.postimg.cc/vTQhmm6M/58bf1e5fe443f41d77c734b2-1.png'),
+    CardWidget(ProductName: 'Menthe', isPowder: false, Quantity: 100, Price: 1500, MyImage: 'https://i.postimg.cc/vTQhmm6M/58bf1e5fe443f41d77c734b2-1.png'),
+    CardWidget(ProductName: 'Menthe', isPowder: false, Quantity: 100, Price: 1500, MyImage: 'https://i.postimg.cc/vTQhmm6M/58bf1e5fe443f41d77c734b2-1.png')
+  
   ];
   int afficherprix(List<CardWidget> cardWidgets) {
     int sum = 0;
     for (CardWidget cardWidget in cardWidgets) {
-      sum += cardWidget.prix;
+      sum += cardWidget.Price;
     }
     return sum;
   }
@@ -40,7 +33,7 @@ class _CartPageState extends State<CartPage> {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.66,
+          height: MediaQuery.of(context).size.height * 0.725,
           width: MediaQuery.of(context).size.width * 1,
           child: SingleChildScrollView(
             child: Column(
@@ -50,6 +43,7 @@ class _CartPageState extends State<CartPage> {
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),

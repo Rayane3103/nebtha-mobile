@@ -22,7 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
       ),
-      body: Center(child: Text('Settings  Page ')),
+      body: const Center(child: Text('Settings  Page ')),
     );
   }
 }
