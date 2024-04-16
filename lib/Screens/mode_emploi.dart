@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+class InstructionPage extends StatefulWidget {
+  const InstructionPage({super.key});
 
+  @override
+  State<InstructionPage> createState() => _InstructionPageState();
+}
+
+class _InstructionPageState extends State<InstructionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +22,7 @@ class WelcomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(child: Text('Welcome Page ')),
+      body: Center(child: Text('Instruction Page ')),
     );
   }
 }

@@ -12,21 +12,21 @@ class ArticleList extends StatelessWidget {
     return Column(
       children: [
         Article(
-        image: 'https://i.postimg.cc/RFt37hCr/doctorr.jpg',
+        image:  'assets/doctor.jpg',
         name: 'Dr.Nafissa', 
         job: 'General Doctor', 
         title: 'The 25 Healthiest Fruits You Can Eat According to a Nutrionist', 
         paragraph: 'The 25 Healthiest Fruits You Can Eat According to a NutrionistThe 25 Healthiest Fruits You Can Eat According to a Nutrionist', 
         date: DateTime.now()),
         Article(
-        image: 'https://i.postimg.cc/RFt37hCr/doctorr.jpg',
+        image:  'assets/doctor.jpg',
         name: 'Dr.Nafissa', 
         job: 'General Doctor', 
         title: 'The 25 Healthiest Fruits You Can Eat According to a Nutrionist', 
         paragraph: 'The 25 Healthiest Fruits You Can Eat According to a NutrionistThe 25 Healthiest Fruits You Can Eat According to a Nutrionist', 
         date: DateTime.now()),
         Article(
-        image: 'https://i.postimg.cc/RFt37hCr/doctorr.jpg',
+        image: 'assets/doctor.jpg',
         name: 'Dr.Nafissa', 
         job: 'General Doctor', 
         title: 'The 25 Healthiest Fruits You Can Eat According to a Nutrionist', 
@@ -59,7 +59,7 @@ class _ArticleState extends State<Article> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-             SizedBox(width: 50,height: 50,child: CircleAvatar(backgroundImage: NetworkImage(widget.image),)),
+             SizedBox(width: 50,height: 50,child: CircleAvatar(backgroundImage: AssetImage(widget.image),)),
             const SizedBox(width: 20,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,8 +86,8 @@ class _ArticleState extends State<Article> {
           SizedBox(height: MediaQuery.of(context).size.height*0.01,),
           Row(children: [
   SizedBox(
-    width: 130, // Set a specific width
-    height: 30, // Set a specific height
+    width: 130, 
+    height: 30, 
     child: ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -105,7 +105,7 @@ class _ArticleState extends State<Article> {
       ),
     ),
   ),
-  const SizedBox(width: 20,),
+  SizedBox(width:  MediaQuery.of(context).size.width*0.01,),
   IconButton(
     onPressed: () {
       setState(() {
@@ -114,7 +114,7 @@ class _ArticleState extends State<Article> {
     },
     icon: isLiked ? const Icon(Icons.favorite, size: 30, color: primaryColor) : const Icon(Icons.favorite_outline, size: 30, color: primaryColor),
   ),
-  SizedBox(width: MediaQuery.of(context).size.height * 0.05,),
+  SizedBox(width: MediaQuery.of(context).size.height * 0.015,),
   const Icon(Icons.calendar_today, color: Colors.grey,),
   SizedBox(width: MediaQuery.of(context).size.height * 0.01,),
   Text(DateFormat('yyyy-MM-dd').format(widget.date))
@@ -130,4 +130,3 @@ class _ArticleState extends State<Article> {
 }
 
 
-//The 25 Healthiest Fruits You Can Eat According to a Nutrionist

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +22,7 @@ class WelcomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(child: Text('Welcome Page ')),
+      body: Center(child: Text('Settings  Page ')),
     );
   }
 }
