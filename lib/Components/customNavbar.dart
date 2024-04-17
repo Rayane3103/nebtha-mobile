@@ -95,11 +95,9 @@ class _MyMainWidgetState extends State<MyMainWidget> {
                                           child: const Text('Annuler'),
                                         ),
                                         TextButton(
-                                          onPressed: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const WelcomePage())),
+                                          onPressed: () {
+                                            Navigator.popAndPushNamed(context, '/');
+                                          },
                                           child: const Text('Oui'),
                                         ),
                                       ]);

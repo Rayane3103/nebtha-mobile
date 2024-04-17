@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nebtha/Components/Slider.dart';
-import 'package:nebtha/Components/card_widget.dart';
+import 'package:nebtha/Components/cart_page/Slider.dart';
+import 'package:nebtha/Components/cart_page/card_widget.dart';
 import 'package:nebtha/Constants/design.dart';
 
 class CartPage extends StatefulWidget {

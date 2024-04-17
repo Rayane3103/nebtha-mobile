@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nebtha/Screens/Auth/login_page.dart';
+import 'package:nebtha/Screens/Auth/signup_page1.dart';
+import 'package:nebtha/Screens/Auth/signup_page2.dart';
 import 'package:nebtha/Components/customNavbar.dart';
+import 'package:nebtha/Screens/Auth/signup_page3.dart';
+import 'package:nebtha/Screens/Auth/splashScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,16 +15,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        
-        body: MyMainWidget(),
-        
-        ),);
+     
+      initialRoute: '/', 
+      routes: {
+        '/': (context) => const LoginPage(),
+        '/signup1': (context) => const SignUp1(),
+        '/signup2': (context) => const SignUp2(), 
+        '/signup3': (context) => const SignUp3(), 
+        '/main': (context) => const MyMainWidget(),
+      },
+    );
   }
 }
-
-
-//I'm just trying to pull from anopther pc

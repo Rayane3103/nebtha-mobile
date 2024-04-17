@@ -9,13 +9,14 @@ import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/description_page.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({super.key, required this.reco, required this.ProductName, required this.ProductArabicName, required this.Productdesc, required this.Price, required this.Image});
+  const ProductCard({super.key, required this.reco, required this.ProductName, required this.ProductArabicName, required this.Productdesc, required this.Price, required this.Image, required this.color});
   final String ProductName;
   final String Image;
   final String ProductArabicName;
   final String Productdesc;
   final int Price;
   final bool reco;
+  final Color color;
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
@@ -48,7 +49,7 @@ class _ProductCardState extends State<ProductCard> {
                 width: MediaQuery.of(context).size.width * 0.45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: const Color.fromARGB(255, 198, 233, 203),
+                  color: widget.color,
                 ),
                 child: Column(
                   children: [
