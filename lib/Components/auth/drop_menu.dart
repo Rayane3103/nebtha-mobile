@@ -5,7 +5,9 @@ import 'package:nebtha/Constants/design.dart';
 class Dropyy extends StatelessWidget {
   final List<String> dropItems;
   final String hintText;
-  const Dropyy({super.key,  required this.hintText,required this.dropItems});
+  final void Function(String)? onChanged; // Callback function to handle onChanged event
+
+  const Dropyy({super.key, required this.hintText, required this.dropItems, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,11 @@ class Dropyy extends StatelessWidget {
         ),
       const SizedBox(height: 2,),
       DropdownButtonFormField<String>(
-        items:  dropItems.map((String value){
-          return DropdownMenuItem<String>(value: value,child:Text(value) ,);}).toList(),
-        
+        items:  dropItems.map((String value) {
+          return DropdownMenuItem<String>(value: value, child: Text(value));
+        }).toList(),
         onChanged: (value) {
-          print('the new value is $value');
+          onChanged?.call(value!); // Invoke the onChanged callback with the selected value
         },
         decoration: InputDecoration(
             contentPadding:  const EdgeInsets.all(14),
@@ -31,7 +33,8 @@ class Dropyy extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(width: 2)
             ),
-          ),)
-    ],);
+          ),
+      )
+    ]);
   }
 }

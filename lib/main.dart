@@ -4,7 +4,6 @@ import 'package:nebtha/Screens/Auth/signup_page1.dart';
 import 'package:nebtha/Screens/Auth/signup_page2.dart';
 import 'package:nebtha/Components/customNavbar.dart';
 import 'package:nebtha/Screens/Auth/signup_page3.dart';
-import 'package:nebtha/Screens/Auth/splashScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,8 +21,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginPage(),
         '/signup1': (context) => const SignUp1(),
-        '/signup2': (context) => const SignUp2(), 
-        '/signup3': (context) => const SignUp3(), 
+        '/signup2': (context) => const SignUp2(password: '', email: '',), 
+        '/signup3': (context) => const SignUp3(password: '', email: '',fullName:'',relativeValue:'',genderValue:'',dateOfBirthValue:'',height:'',weight:'',),
         '/main': (context) => const MyMainWidget(),
       },
     );

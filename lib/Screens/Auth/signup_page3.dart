@@ -1,13 +1,34 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nebtha/Components/customNavbar.dart';
 import 'package:nebtha/Constants/constants.dart';
 import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/Auth/signup_page2.dart';
-
+import 'package:http/http.dart' as http;
 
 class SignUp3 extends StatefulWidget {
-  const SignUp3({super.key});
+  final String email;
+  final String password;
+  final String fullName;
+  final String relativeValue;
+  final String genderValue;
+  final String dateOfBirthValue;
+  final String height;
+  final String weight;
+
+  const SignUp3({
+    super.key,
+    required this.email,
+    required this.password,
+    required this.fullName,
+    required this.relativeValue,
+    required this.genderValue,
+    required this.dateOfBirthValue,
+    required this.height,
+    required this.weight,
+  });
 
   @override
   State<SignUp3> createState() => _SignUp3State();
@@ -15,6 +36,78 @@ class SignUp3 extends StatefulWidget {
 
 class _SignUp3State extends State<SignUp3> {
   List<String> selectedOptions = [];
+
+ Future<String?> _registerUser() async {
+  final email = widget.email;
+  final password = widget.password;
+
+  final emailPasswordResponse = await http.post(
+    Uri.parse('https://nebta.onrender.com/api/Account'),
+    body: jsonEncode({
+      'email': email,
+      'password': password,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
+
+  if (emailPasswordResponse.statusCode == 200) {
+    print(jsonDecode(emailPasswordResponse.body));
+    final token = jsonDecode(emailPasswordResponse.body)['data']['addNewAccount']['token'];
+    final id = jsonDecode(emailPasswordResponse.body)['data']['addNewAccount']['_id'];
+    
+    final maladiesString = selectedOptions.join(',');
+
+  final otherDataResponse = await http.post(
+    Uri.parse('https://nebta.onrender.com/api/Profile'),
+    body: jsonEncode({
+      'fullname': widget.fullName,
+      'relative': widget.relativeValue,
+      'gender': widget.genderValue,
+      'DateOfBirth': widget.dateOfBirthValue,
+      'height': widget.height,
+      'weight': widget.weight,
+      'maladieCronique': maladiesString,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+      final profileId = jsonDecode(emailPasswordResponse.body)['data']['addNewProfile']['_id'];
+
+
+
+  if (otherDataResponse.statusCode == 200) {
+    print('Other data response body: ${otherDataResponse.body}');
+
+final LastDataResponse = await http.patch(
+    Uri.parse('https://nebta.onrender.com/api/Account/$id'),
+    body: jsonEncode({
+      'profileId': '$profileId',
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
+
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const MyMainWidget()),
+    );
+  } else {
+    print('Error posting other data: ${otherDataResponse.body}');
+  }
+}
+ 
+
+  final maladiesString = selectedOptions.join(',');
+  return null;
+
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +129,7 @@ class _SignUp3State extends State<SignUp3> {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignUp2()),
+                        MaterialPageRoute(builder: (context) => const SignUp2(email: '', password: '',)),
                       );
                     },
                     iconSize: 30,
@@ -151,8 +244,23 @@ class _SignUp3State extends State<SignUp3> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
                               onPressed: () {
-                                Navigator.pushNamed(context, '/main');
-                              },
+  if (selectedOptions.isNotEmpty) {
+   _registerUser();
+
+
+    print('Selected Options: $selectedOptions');
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const MyMainWidget()),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Please select at least one option.'),
+      ),
+    );
+  }
+},
                               child: const Text('Submit', style: TextStyle(color: Colors.white)),
                             ),
                           ),

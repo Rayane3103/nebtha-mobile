@@ -96,8 +96,7 @@ class _MyMainWidgetState extends State<MyMainWidget> {
                                         ),
                                         TextButton(
                                           onPressed: () {
-                                            Navigator.popAndPushNamed(context, '/');
-                                          },
+                                          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false)   ;                                    },
                                           child: const Text('Oui'),
                                         ),
                                       ]);

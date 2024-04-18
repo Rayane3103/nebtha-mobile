@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                           TextButton(onPressed: (){
                             Navigator.pushNamedAndRemoveUntil(context, '/signup1', (route) => false);
-                          }, child: const Text("N'avez pas du compte? Inscrire!"))
+                          }, child: const Text("N'avez pas du compte? Inscrire!", style: TextStyle(color: primaryColor),))
                          ],)
                       ],),
                     ),),
