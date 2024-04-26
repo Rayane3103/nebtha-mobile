@@ -11,10 +11,11 @@ import 'package:http/http.dart' as http;
 class SignUp3 extends StatefulWidget {
   final String email;
   final String password;
-  final String fullName;
-  final String relativeValue;
-  final String genderValue;
-  final String dateOfBirthValue;
+  final String phoneNumber;
+  final String fullname;
+  final String relative;
+  final String gender;
+  final String DateOfBirth;
   final String height;
   final String weight;
 
@@ -22,10 +23,11 @@ class SignUp3 extends StatefulWidget {
     super.key,
     required this.email,
     required this.password,
-    required this.fullName,
-    required this.relativeValue,
-    required this.genderValue,
-    required this.dateOfBirthValue,
+    required this.phoneNumber,
+    required this.fullname,
+    required this.relative,
+    required this.gender,
+    required this.DateOfBirth,
     required this.height,
     required this.weight,
   });
@@ -35,78 +37,64 @@ class SignUp3 extends StatefulWidget {
 }
 
 class _SignUp3State extends State<SignUp3> {
-  List<String> selectedOptions = [];
+  List<String> maladieCronique = [];
 
- Future<String?> _registerUser() async {
-  final email = widget.email;
-  final password = widget.password;
+ 
+  Future<void> signUp() async {
+  // Construct the request body
+  final Map<String, dynamic> requestBody = {
+    'email': widget.email,
+    'password': widget.password,
+    'phoneNumber': widget.phoneNumber,
+    'fullname': widget.fullname,
+    'relative': widget.relative,
+    'gender': widget.gender,
+    'DateOfBirth': widget.DateOfBirth,
+    'height': widget.height,
+    'weight': widget.weight,
+    'maladieCronique': maladieCronique,
+  };
 
-  final emailPasswordResponse = await http.post(
-    Uri.parse('https://nebta.onrender.com/api/Account'),
-    body: jsonEncode({
-      'email': email,
-      'password': password,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  );
+  // Convert the request body to JSON
+  final String requestBodyJson = json.encode(requestBody);
 
-  if (emailPasswordResponse.statusCode == 200) {
-    print(jsonDecode(emailPasswordResponse.body));
-    final token = jsonDecode(emailPasswordResponse.body)['data']['addNewAccount']['token'];
-    final id = jsonDecode(emailPasswordResponse.body)['data']['addNewAccount']['_id'];
-    
-    final maladiesString = selectedOptions.join(',');
-
-  final otherDataResponse = await http.post(
-    Uri.parse('https://nebta.onrender.com/api/Profile'),
-    body: jsonEncode({
-      'fullname': widget.fullName,
-      'relative': widget.relativeValue,
-      'gender': widget.genderValue,
-      'DateOfBirth': widget.dateOfBirthValue,
-      'height': widget.height,
-      'weight': widget.weight,
-      'maladieCronique': maladiesString,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-  );
-      final profileId = jsonDecode(emailPasswordResponse.body)['data']['addNewProfile']['_id'];
-
-
-
-  if (otherDataResponse.statusCode == 200) {
-    print('Other data response body: ${otherDataResponse.body}');
-
-final LastDataResponse = await http.patch(
-    Uri.parse('https://nebta.onrender.com/api/Account/$id'),
-    body: jsonEncode({
-      'profileId': '$profileId',
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  );
-
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const MyMainWidget()),
+  try {
+    // Make the POST request
+    final response = await http.post(
+      Uri.parse('https://nebta.onrender.com/api/singUp'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: requestBodyJson,
     );
-  } else {
-    print('Error posting other data: ${otherDataResponse.body}');
+
+    // Check if the request was successful
+    if (response.statusCode == 200) {
+      // Handle successful response
+      print('Sign up successful');
+      print('Response: ${response.body}');
+      
+      // Navigate to the next screen or perform any other action
+    } else {
+      // Handle unsuccessful response
+      print('Failed to sign up');
+      print('Error code: ${response.statusCode}');
+      print('Error message: ${response.body}');
+      
+      // Show an error message or retry the request
+    }
+  } catch (error) {
+    // Handle errors during the request
+    print('Error during sign up: $error');
+    
+    // Show an error message or retry the request
   }
 }
+
+
+    
  
 
-  final maladiesString = selectedOptions.join(',');
-  return null;
-
-}
 
 
   @override
@@ -129,7 +117,7 @@ final LastDataResponse = await http.patch(
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignUp2(email: '', password: '',)),
+                        MaterialPageRoute(builder: (context) => const SignUp2(email: '', password: '',phoneNumber: '',)),
                       );
                     },
                     iconSize: 30,
@@ -183,10 +171,10 @@ final LastDataResponse = await http.patch(
                                   MultiSelectDropdown(
                                     hintText: 'Maladie Chronique',
                                     options: maladies,
-                                    selectedOptions: selectedOptions,
+                                    selectedOptions: maladieCronique,
                                     onChanged: (List<String> newSelectedOptions) {
                                       setState(() {
-                                        selectedOptions = newSelectedOptions;
+                                        maladieCronique = newSelectedOptions;
                                       });
                                     },
                                     decoration: InputDecoration(
@@ -208,11 +196,11 @@ final LastDataResponse = await http.patch(
     const SizedBox(height: 8),
     Wrap(
   spacing: 8,
-  children: selectedOptions.map((option) {
+  children: maladieCronique.map((option) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          selectedOptions.remove(option);
+          maladieCronique.remove(option);
         });
       },
       child: Chip(
@@ -244,11 +232,11 @@ final LastDataResponse = await http.patch(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
                               onPressed: () {
-  if (selectedOptions.isNotEmpty) {
-   _registerUser();
+  if (maladieCronique.isNotEmpty) {
+  
 
 
-    print('Selected Options: $selectedOptions');
+    print('Selected Options: $maladieCronique');
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const MyMainWidget()),

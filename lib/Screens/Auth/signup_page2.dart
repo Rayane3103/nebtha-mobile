@@ -11,8 +11,9 @@ import 'package:nebtha/Services/auth_account.dart';
 class SignUp2 extends StatefulWidget {
   final String email;
   final String password;
+  final String phoneNumber;
 
-  const SignUp2({super.key, required this.email, required this.password});
+  const SignUp2({super.key, required this.email, required this.password, required this.phoneNumber});
 
   @override
   State<SignUp2> createState() => _SignUp2State();
@@ -27,12 +28,14 @@ class _SignUp2State extends State<SignUp2> {
       builder: (context) => SignUp3(
         email: widget.email,
         password: widget.password,
-        fullName: fullNameController.text,
-        relativeValue: relativeValue ?? '',
-        genderValue: genderValue ?? '',
-        dateOfBirthValue: dateOfBirthValue ?? '',
+        phoneNumber:widget.phoneNumber,
+        fullname: fullNameController.text,
+        relative: relativeValue ?? '',
+        gender: genderValue ?? '',
+        DateOfBirth: dateOfBirthValue ?? '',
         height: heightController.text,
         weight: weightController.text,
+        
       ),
     ),
   );

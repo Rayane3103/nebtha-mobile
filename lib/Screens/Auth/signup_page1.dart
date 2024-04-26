@@ -13,13 +13,15 @@ class SignUp1 extends StatefulWidget {
 class _SignUp1State extends State<SignUp1> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   bool? throwShotAway = false;
 
-  void goToSignUp2(String email, String password) {
+  void goToSignUp2(String email, String password,String phoneNumber) {
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(
       builder: (context) => SignUp2(
+        phoneNumber: phoneNumber,
         email: email,
         password: password,
       ),
@@ -98,9 +100,10 @@ class _SignUp1State extends State<SignUp1> {
                             keyboardType: TextInputType.emailAddress,
                             controller: emailController,
                           ),
-                          const CustomTextField(
+                          CustomTextField(
                             labelText: 'Numero de téléphone',
                             keyboardType: TextInputType.phone,
+                            controller: phoneController,
                           ),
                           CustomTextField(
                             labelText: 'Mot de passe',
@@ -141,6 +144,7 @@ class _SignUp1State extends State<SignUp1> {
                               goToSignUp2(
                                 emailController.text,
                                 passwordController.text,
+                                phoneController.text
                               );
                             },
                             child: const Text(
