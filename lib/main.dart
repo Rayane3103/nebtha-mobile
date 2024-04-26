@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginPage(),
         '/signup1': (context) => const SignUp1(),
-        '/signup2': (context) => const SignUp2(password: '', email: '',), 
-        '/signup3': (context) => const SignUp3(password: '', email: '',fullName:'',relativeValue:'',genderValue:'',dateOfBirthValue:'',height:'',weight:'',),
+        '/signup2': (context) => const SignUp2(password: '', email: '', phoneNumber: '',), 
+        '/signup3': (context) => const SignUp3(password: '', email: '',height:'',weight:'', DateOfBirth: '', phoneNumber: '', fullname: '', relative: '', gender: '',),
         '/main': (context) => const MyMainWidget(),
       },
     );
