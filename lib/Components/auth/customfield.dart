@@ -5,14 +5,16 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextInputType keyboardType;
   final bool obscureText;
-  final TextEditingController? controller; // Added controller parameter
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
     required this.labelText,
     required this.keyboardType,
     this.obscureText = false,
-    this.controller, // Added controller parameter with default value null
+    this.controller,
+    this.validator, 
   });
 
   @override
@@ -25,7 +27,7 @@ class CustomTextField extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               labelText,
-              style: const TextStyle(color: primaryColor), // Use primaryColor from Constants/design.dart
+              style: const TextStyle(color: primaryColor),
             ),
           ],
         ),
@@ -33,12 +35,13 @@ class CustomTextField extends StatelessWidget {
         TextFormField(
           keyboardType: keyboardType,
           obscureText: obscureText,
-          controller: controller, // Use the provided controller
+          controller: controller,
+          validator: validator,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(14),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(width: 2, color: primaryColor), // Use primaryColor from Constants/design.dart
+              borderSide: const BorderSide(width: 2, color: primaryColor),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),

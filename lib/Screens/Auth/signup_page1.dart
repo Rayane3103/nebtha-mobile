@@ -11,24 +11,58 @@ class SignUp1 extends StatefulWidget {
 }
 
 class _SignUp1State extends State<SignUp1> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   bool? throwShotAway = false;
 
-  void goToSignUp2(String email, String password,String phoneNumber) {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => SignUp2(
-        phoneNumber: phoneNumber,
-        email: email,
-        password: password,
-      ),
-    ),
-  );
-}
-  
+  void goToSignUp2(String email, String password, String phoneNumber) {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SignUp2(
+            phoneNumber: phoneNumber,
+            email: email,
+            password: password,
+          ),
+        ),
+      );
+    }
+  }
+
+  String? emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+    final emailRegExp = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegExp.hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String? passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters long';
+    }
+    return null;
+  }
+
+  String? confirmPasswordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (value != passwordController.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,84 +113,94 @@ class _SignUp1State extends State<SignUp1> {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(26.0),
-              child: ListView(
-                children: [
-                  const SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(26),
-                      boxShadow: const [BoxShadow(blurRadius: 1)],
-                    ),
-                    width: 360,
-                    height: 580,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: ListView(
-                        children: [
-                          const SizedBox(height: 20),
-                          CustomTextField(
-                            labelText: 'E-mail',
-                            keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
-                          ),
-                          CustomTextField(
-                            labelText: 'Numero de téléphone',
-                            keyboardType: TextInputType.phone,
-                            controller: phoneController,
-                          ),
-                          CustomTextField(
-                            labelText: 'Mot de passe',
-                            obscureText: true,
-                            keyboardType: TextInputType.text,
-                            controller: passwordController,
-                          ),
-                          const CustomTextField(
-                            labelText: 'Confirmer le mot de passe',
-                            obscureText: true,
-                            keyboardType: TextInputType.text,
-                          ),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: throwShotAway,
-                                onChanged: (bool? newValue) {
-                                  setState(() {
-                                    throwShotAway = newValue!;
-                                  });
-                                },
-                              ),
-                              const Text('Accepter tous ns'),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'conditions',
-                                  style: TextStyle(color: primaryColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            style:
-                                ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                            onPressed: () {
-                              goToSignUp2(
-                                emailController.text,
-                                passwordController.text,
-                                phoneController.text
-                              );
-                            },
-                            child: const Text(
-                              'Suivant',
-                              style: TextStyle(color: Colors.white),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    const SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(26),
+                        boxShadow: const [BoxShadow(blurRadius: 1)],
+                      ),
+                      width: 360,
+                      height: 580,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: ListView(
+                          children: [
+                            const SizedBox(height: 20),
+                            CustomTextField(
+                              labelText: 'E-mail',
+                              keyboardType: TextInputType.emailAddress,
+                              controller: emailController,
+                              validator: emailValidator,
                             ),
-                          )
-                        ],
+                            CustomTextField(
+                              labelText: 'Numero de téléphone',
+                              keyboardType: TextInputType.phone,
+                              controller: phoneController,
+                            ),
+                            CustomTextField(
+                              labelText: 'Mot de passe',
+                              obscureText: true,
+                              keyboardType: TextInputType.text,
+                              controller: passwordController,
+                              validator: passwordValidator,
+                            ),
+                            CustomTextField(
+                              labelText: 'Confirmer le mot de passe',
+                              obscureText: true,
+                              keyboardType: TextInputType.text,
+                              controller: confirmPasswordController,
+                              validator: confirmPasswordValidator,
+                            ),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: throwShotAway,
+                                  onChanged: (bool? newValue) {
+                                    setState(() {
+                                      throwShotAway = newValue!;
+                                    });
+                                  },
+                                ),
+                                const Text('Accepter tous ns'),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'conditions',
+                                    style: TextStyle(color: primaryColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  goToSignUp2(
+                                    emailController.text,
+                                    passwordController.text,
+                                    phoneController.text,
+                                  );
+                                }
+                              },
+                              child: const Text(
+                                'Suivant',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/cart_page.dart';
@@ -9,29 +11,39 @@ import 'package:nebtha/Screens/parametre.dart';
 import 'package:nebtha/Screens/plantsPage.dart';
 import 'package:nebtha/Screens/profile_page.dart';
 import 'package:nebtha/Screens/welcome_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:nebtha/Services/auth_account.dart';
+
 
 class MyMainWidget extends StatefulWidget {
-  const MyMainWidget({super.key});
+  final Map<String, dynamic> profileData;
+  const MyMainWidget({super.key, required this.profileData,});
 
   @override
   State<MyMainWidget> createState() => _MyMainWidgetState();
 }
 
 class _MyMainWidgetState extends State<MyMainWidget> {
+
+ 
+
+ late List<Widget> _items;
+  late List<Widget> _icons;
+
   @override
   void initState() {
+    print("my data: ${widget.profileData}");
     super.initState();
+    _items = [
+      const HomePage(),
+      PlantsPage(profileData: widget.profileData),
+      const CartPage(),
+    ];
+
+    _icons = [
+      Image.asset('assets/video.png'),
+    ];
   }
-
-  final List _items = [
-    const HomePage(),
-    const PlantsPage(),
-    const CartPage(),
-  ];
-
-  final List _icons = [
-    Image.asset('assets/video.png'),
-  ];
 
   void _onTappedItem(int index) {
     setState(() {

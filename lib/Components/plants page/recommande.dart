@@ -15,22 +15,22 @@ class _RecommandationState extends State<Recommandation> {
       width: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(30)),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
             child: Icon(
               Icons.circle,
-              color: Colors.teal.shade900,
+              color: Color.fromARGB(255, 0, 146, 49),
               size: 15,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 7, 0),
+            padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
             child: Text(
               'recommandé',
-              style: TextStyle(color: Colors.teal.shade900, fontSize: 14),
+              style: TextStyle(color: Color.fromARGB(255, 0, 146, 49), fontSize: 14),
             ),
           )
         ],

@@ -9,7 +9,8 @@ import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/description_page.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({super.key, required this.reco, required this.ProductName, required this.ProductArabicName, required this.Productdesc, required this.Price, required this.Image, required this.color});
+  const ProductCard({super.key, required this.reco, required this.ProductName, required this.ProductArabicName, required this.Productdesc, required this.Price, required this.Image, required this.color,  // Step 1: Add callback function
+});
   final String ProductName;
   final String Image;
   final String ProductArabicName;
@@ -17,6 +18,8 @@ class ProductCard extends StatefulWidget {
   final int Price;
   final bool reco;
   final Color color;
+     // Step 1: Callback function declaration
+
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
@@ -81,20 +84,20 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
                Padding(
-                padding: EdgeInsets.fromLTRB(12.0, 5, 0, 0),
+                padding: const EdgeInsets.fromLTRB(12.0, 5, 0, 0),
                 child: Text(
                   widget.ProductName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
                Padding(
-                padding: EdgeInsets.fromLTRB(12.0, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(12.0, 0, 0, 0),
                 child: Text(
                   widget.ProductArabicName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: primaryColor,
                   ),
                 ),
@@ -129,10 +132,10 @@ class _ProductCardState extends State<ProductCard> {
       InkWell(
         onTap: () {
         },
-        child: Text(
+        child: const Text(
           'plus de details',
           style: TextStyle(
-            color: const Color.fromARGB(255, 39, 39, 39),
+            color: Color.fromARGB(255, 39, 39, 39),
             fontSize: 13,
             fontWeight: FontWeight.bold,
           ),
@@ -147,10 +150,10 @@ class _ProductCardState extends State<ProductCard> {
               Row(
                 children: [
                    Padding(
-                    padding: EdgeInsets.fromLTRB(12.0, 0, 12, 0),
+                    padding: const EdgeInsets.fromLTRB(12.0, 0, 12, 0),
                     child: Text(
                       '${widget.Price} DA',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     
                   ),
@@ -160,7 +163,7 @@ class _ProductCardState extends State<ProductCard> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.005,
               ),
-              const Row(
+               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   PurchaseButton(),
@@ -179,7 +182,7 @@ class _ProductCardState extends State<ProductCard> {
   String _truncateText(String text, int maxWords) {
   List<String> words = text.split(' ');
   if (words.length > maxWords) {
-    return words.sublist(0, maxWords).join(' ') + '......';
+    return '${words.sublist(0, maxWords).join(' ')}......';
   } else {
     return text;
   }

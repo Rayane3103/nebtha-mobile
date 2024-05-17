@@ -21,7 +21,7 @@ const maladies = [
   "cancer",
   "Diabète",
   "Épilepsie",
-  "Hypertension artérielle ",
+  "Hypertension artérielle",
   "Hypercholestérolémie ",
   "Insuffisance hépatique",
   "Insuffisance rénale ",
