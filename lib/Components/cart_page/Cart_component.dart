@@ -14,7 +14,7 @@ class _CardComponentState extends State<CardComponent> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 23, 0, 30),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.25,
+        width: MediaQuery.of(context).size.width * 0.28,
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +30,7 @@ class _CardComponentState extends State<CardComponent> {
                 ],
               ),
               const CustomRow(
-                grammage: 500,
+                grammage: 100,
               ),
             ],
           ),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nebtha/Constants/design.dart';
+import 'package:nebtha/Screens/order_page.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 
 class MySlider extends StatefulWidget {
-  const MySlider({super.key});
+  final int totalPrice;
+   final Map<String, dynamic> profileData;
+
+  const MySlider({super.key, required this.totalPrice, required this.profileData});
 
   @override
   State<MySlider> createState() => _MySliderState();
@@ -32,8 +36,13 @@ class _MySliderState extends State<MySlider> {
             text: '       confirmer votre panier',
             key: key,
             onSubmit: () {
-              return null;
-            },
+Navigator.push<void>(
+    context,
+    MaterialPageRoute<void>(
+      builder: (BuildContext context) =>  OrderPage(totalPrice: widget.totalPrice, profileData: widget.profileData,),
+    ),
+  );
+return null;            },
           ),
         );
       },
@@ -47,10 +56,10 @@ class MyButtonRow extends StatefulWidget {
   final VoidCallback onToggle;
 
   const MyButtonRow({
-    Key? key,
+    super.key,
     required this.isPowder,
     required this.onToggle,
-  }) : super(key: key);
+  });
 
   @override
   _MyButtonRowState createState() => _MyButtonRowState();

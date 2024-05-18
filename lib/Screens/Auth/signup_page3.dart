@@ -38,44 +38,97 @@ class SignUp3 extends StatefulWidget {
 
 class _SignUp3State extends State<SignUp3> {
   List<int> maladieCroniqueIndices = [];
+  bool isLoading = false;
+Future<Map<String, dynamic>?> FetchProfile(String profileId, String token) async {
+  try {
+    final response = await http.get(
+      Uri.parse('https://nebta.onrender.com/api/Profile/$profileId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
 
-  Future<void> signUp() async {
-    final Map<String, dynamic> requestBody = {
-      'email': widget.email,
-      'password': widget.password,
-      'phoneNumber': widget.phoneNumber,
-      'fullname': widget.fullname,
-      'relative': widget.relative,
-      'gender': widget.gender,
-      'DateOfBirth': widget.DateOfBirth,
-      'height': widget.height,
-      'weight': widget.weight,
-      'maladieCronique': maladieCroniqueIndices,
-    };
-
-    final String requestBodyJson = json.encode(requestBody);
-
-    try {
-      final response = await http.post(
-        Uri.parse('https://nebta.onrender.com/api/Account/singUp'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: requestBodyJson,
-      );
-
-      if (response.statusCode == 201) {
-        print('Sign up successful');
-        print('Response: ${response.body}');
-      } else {
-        print('Failed to sign up');
-        print('Error code: ${response.statusCode}');
-        print('Error message: ${response.body}');
-      }
-    } catch (error) {
-      print('Error during sign up: $error');
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      print('Fetch Profile successful : ');
+      return json.decode(response.body);
+      
+    } else {
+      print('Fetch Profile error');
+      print('Error code: ${response.statusCode}');
+      print('Error message: ${response.body}');
+      return null;
     }
+  } catch (error) {
+    print('Error $error');
+    return null;
   }
+}
+  Future<void> signUp() async {
+    setState(() {
+      isLoading = true;
+    });
+  final Map<String, dynamic> requestBody = {
+    'email': widget.email,
+    'password': widget.password,
+    'phoneNumber': widget.phoneNumber,
+    'fullname': widget.fullname,
+    'relative': widget.relative,
+    'gender': widget.gender,
+    'DateOfBirth': widget.DateOfBirth,
+    'height': widget.height,
+    'weight': widget.weight,
+    'maladieCronique': maladieCroniqueIndices,
+  };
+
+  final String requestBodyJson = json.encode(requestBody);
+
+  try {
+    final response = await http.post(
+      Uri.parse('https://nebta.onrender.com/api/Account/singUp'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: requestBodyJson,
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      final responseBody = json.decode(response.body);
+      print('Response Body: $responseBody');
+      final data = responseBody['data'];
+      if (data != null) {
+        final profileId = data['Account']['profile'][0];
+        final token = data['Account']['token'];
+        final profileResponse = await FetchProfile(profileId, token);
+        if (profileResponse != null) {
+          print(profileResponse);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MyMainWidget(profileData: profileResponse),
+            ),
+          );
+        } else {
+          print('Failed to fetch profile');
+        }
+      }
+      print('Sign up successful');
+      print('Response: ${response.body}');
+    } else {
+      print('Failed to sign up');
+      print('Error code: ${response.statusCode}');
+      print('Error message: ${response.body}');
+    }
+  } catch (error) {
+    print('Error during sign up: $error');
+  }
+  finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +161,7 @@ class _SignUp3State extends State<SignUp3> {
               ),
             ),
             SizedBox(width: MediaQuery.of(context).size.width * 0.03),
-            const Text('Creér votre compte Nebtha', style: TextStyle(color: Colors.white)),
+            const Text('Creér votre compte Nebtha,', style: TextStyle(fontSize: 20,color: Colors.white)),
           ],
         ),
       ),
@@ -191,7 +244,7 @@ class _SignUp3State extends State<SignUp3> {
                                               label: Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  Text(maladies[index], style: const TextStyle(color: Colors.white)),
+                                                  Text(maladies[index-1], style: const TextStyle(color: Colors.white)),
                                                   const SizedBox(width: 4),
                                                   const Icon(Icons.close, size: 14, color: Colors.white),
                                                 ],
@@ -216,12 +269,12 @@ class _SignUp3State extends State<SignUp3> {
                                 if (maladieCroniqueIndices.isNotEmpty) {
                                   print('Selected Options: $maladieCroniqueIndices');
                                   await signUp(); 
-                                  Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/main',
-          (route) => false,
-          // arguments: profileResponse, // Pass the profile data here
-        );
+        //                           Navigator.pushNamedAndRemoveUntil(
+        //   context,
+        //   '/main',
+        //   (route) => false,
+        //   // arguments: profileResponse, // Pass the profile data here
+        // );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -230,7 +283,9 @@ class _SignUp3State extends State<SignUp3> {
                                   );
                                 }
                               },
-                              child: const Text('Submit', style: TextStyle(color: Colors.white)),
+                              child:  isLoading
+                                  ? const CircularProgressIndicator(color: Colors.white)
+                                  : const Text('Submit', style: TextStyle(color: Colors.white)),
                             ),
                           ),
                           SizedBox(height: MediaQuery.of(context).size.height * 0.07),
@@ -277,7 +332,7 @@ class MultiSelectDropdown extends StatelessWidget {
           DropdownButtonFormField<String>(
             isDense: true,
             hint: Text(hintText),
-            value: selectedIndices.isEmpty ? null : options[selectedIndices.first],
+            value: selectedIndices.isEmpty ? null : options[selectedIndices.first-1],
             onChanged: (String? newValue) {
               final int newIndex = options.indexOf(newValue!)+1;
               final List<int> newSelectedIndices = List<int>.from(selectedIndices);

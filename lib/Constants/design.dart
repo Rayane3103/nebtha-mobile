@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const primaryColor = Color(0xFF477971);
 
-const backgrounds=[
+const bg=[
  
   Color(0xFFEBE7C1),
   Color(0xFFDEFFB4),
@@ -15,5 +15,11 @@ const backgrounds=[
   Color.fromRGBO(225, 226, 239, 0.9),
   Color(0xFFE2FFFF),
   Color.fromRGBO(255, 215, 225, 0.7)
+
+];
+
+const backgrounds=[
+ 
+  Colors.white
 
 ];

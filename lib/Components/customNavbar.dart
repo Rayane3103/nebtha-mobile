@@ -13,6 +13,7 @@ import 'package:nebtha/Screens/profile_page.dart';
 import 'package:nebtha/Screens/welcome_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:nebtha/Services/auth_account.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class MyMainWidget extends StatefulWidget {
@@ -21,9 +22,20 @@ class MyMainWidget extends StatefulWidget {
 
   @override
   State<MyMainWidget> createState() => _MyMainWidgetState();
+  
 }
 
 class _MyMainWidgetState extends State<MyMainWidget> {
+  List<Map<String, dynamic>> selectedProducts = [];
+
+  void updateSelectedProducts(List<Map<String, dynamic>> newSelectedProducts) {
+    setState(() {
+      selectedProducts = newSelectedProducts;
+    });
+print('Selected Product Names (Before Navigation): ${selectedProducts.map((product) => product['ProductName']).toList()}');
+  _items[2] = CartPage(selectedProducts: selectedProducts,profileData: widget.profileData); // Update CartPage with new selectedProducts
+
+  }
 
  
 
@@ -35,10 +47,14 @@ class _MyMainWidgetState extends State<MyMainWidget> {
     print("my data: ${widget.profileData}");
     super.initState();
     _items = [
-      const HomePage(),
-      PlantsPage(profileData: widget.profileData),
-      const CartPage(),
-    ];
+  const HomePage(),
+  PlantsPage(
+    profileData: widget.profileData,
+    updateSelectedProducts: updateSelectedProducts,
+  ),
+  CartPage(selectedProducts: selectedProducts,profileData: widget.profileData,), // Pass selectedProducts
+];
+
 
     _icons = [
       Image.asset('assets/video.png'),
@@ -127,15 +143,16 @@ class _MyMainWidgetState extends State<MyMainWidget> {
                           )
                         ],
                       ),
-                      CircleAvatar(
-                        radius: 40,
-                        child: ClipOval(child: Image.asset('assets/1.png')),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      Image.asset(
+    'assets/profileimg.png',
+    height: MediaQuery.of(context).size.height*0.12,
+    width: MediaQuery.of(context).size.height*0.12,
+  ),
+
+                        Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                         child: Text(
-                          'Exemple Of a Name',
-                          style: TextStyle(
+widget.profileData['fullname'],                          style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 20,
                               color: Colors.white),
@@ -144,33 +161,26 @@ class _MyMainWidgetState extends State<MyMainWidget> {
                     ],
                   )),
             ),
-            ListTile(
-                leading: const Icon(Icons.person_outline_rounded),
-                title: const Text('Mon Profile'),
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ProfilePage()))),
-            ListTile(
-                leading: const Icon(Icons.favorite_border),
-                title: const Text('J\'aime'),
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LikesPage()))),
-            ListTile(
-                leading: const Icon(Icons.history),
-                title: const Text('Historique d\'achat'),
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HistoryPage()))),
-            ListTile(
-                leading: const Icon(Icons.qr_code),
-                title: const Text('Mode d\'utilisation'),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const InstructionPage()))),
-            ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Parametre'),
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const SettingsPage()))),
+            const ListTile(
+                leading: Icon(Icons.person_outline_rounded),
+                title: Text('Mon Profile'),
+                ),
+            const ListTile(
+                leading: Icon(Icons.favorite_border),
+                title: Text('J\'aime'),
+                ),
+            const ListTile(
+                leading: Icon(Icons.history),
+                title: Text('Historique d\'achat'),
+                ),
+            const ListTile(
+                leading: Icon(Icons.qr_code),
+                title: Text('Mode d\'utilisation'),
+                ),
+            const ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Parametre'),
+               ),
             Divider(
               indent: 20,
               endIndent: 20,
@@ -181,58 +191,21 @@ class _MyMainWidgetState extends State<MyMainWidget> {
               child: ListTile(
                 leading: CircleAvatar(
                   radius: 25,
-                  child: ClipOval(child: Image.asset('assets/11.png')),
+                  child: ClipOval(child: Image.asset('assets/profileimg.png')),
                 ),
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('name of another profile'),
+                     Text(widget.profileData['fullname']),
                     Text(
-                      'membre de famille',
+                      'Me',
                       style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     )
                   ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 25,
-                  child: ClipOval(child: Image.asset('assets/11.png')),
-                ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('name of another profile'),
-                    Text(
-                      'ami',
-                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 25,
-                  child: ClipOval(child: Image.asset('assets/11.png')),
-                ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('name of another profile'),
-                    Text(
-                      'membre de famille',
-                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                    )
-                  ],
-                ),
-              ),
-            ),
+           
           ],
         ),
       ),
@@ -262,6 +235,13 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -270,8 +250,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
       actions: [
         IconButton(
           onPressed: () {
-            setState(() {});
-          },
+              _launchURL('https://www.youtube.com/@FytaPharm');
+            },
           icon: Image.asset('assets/video.png'),
         )
       ],

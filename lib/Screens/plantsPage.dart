@@ -9,21 +9,27 @@ import 'package:nebtha/Services/auth_account.dart';
 
 class PlantsPage extends StatefulWidget {
  final Map<String, dynamic> profileData;
-   const PlantsPage({super.key, required this.profileData});
+   final Function(List<Map<String, dynamic>>) updateSelectedProducts; // Add this line
+
+   const PlantsPage({super.key, required this.profileData, required this.updateSelectedProducts});
 
   @override
   _PlantsPageState createState() => _PlantsPageState();
 }
 
 class _PlantsPageState extends State<PlantsPage> {
+   List<Map<String, dynamic>> selectedProducts = [];
+
   List<Map<String, dynamic>> nocifs_products = [];
   List<Map<String, dynamic>> reco_products = [];
   Random random = Random();
   bool isLoading = true;
 
+
   @override
   void initState() {
     super.initState();
+      selectedProducts = []; // Initialize selectedProducts list
     fetchNocif();
     fetchRecomonde();
 final List<String> nocif = widget.profileData['nocif'] != null
@@ -33,6 +39,7 @@ final List<String> nocif = widget.profileData['nocif'] != null
 
   @override
   void dispose() {
+    // Dispose of any resources here
     super.dispose();
   }
 
@@ -62,6 +69,9 @@ final List<String> nocif = widget.profileData['nocif'] != null
     print(e);
   }
 }
+List<Map<String, dynamic>> cart_products=[];
+
+
 
 Future<void> fetchRecomonde() async {
   try {
@@ -133,22 +143,56 @@ Future<void> fetchRecomonde() async {
             ),
             itemBuilder: (BuildContext context, int index) {
               final product = products[index];
-              final randomIndex = random.nextInt(backgrounds.length);
               return ProductCard(
-                color: backgrounds[randomIndex],
+                color: Colors.white,
                 reco: reco,
                 ProductName: product['ProductName'],
                 ProductArabicName: product['ProductArabicName'],
                 Productdesc: product['Productdesc'],
                 Price: product['Price'],
                 Image: product['Image'], 
+                Propriete: [product['Propriete']],
+               onPurchase: () {
+  setState(() {
+    selectedProducts.add(product);
+    print('added ${product['ProductName']}');
+
+    widget.updateSelectedProducts(selectedProducts);
+  });
+  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('Produit ajouté au panier avec succès', style: TextStyle(color: Colors.white)),
+                      backgroundColor: primaryColor,
+                      duration: const Duration(seconds: 3),
+                      action: SnackBarAction(
+                        label: 'Fermer',
+                        textColor: Colors.white,
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+},
               );
             },
           );
   }
 
   Widget _buildLoadingIndicator() {
-    return Center(
+    return GridView.builder(
+            itemCount: 4,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisExtent: MediaQuery.of(context).size.height * 0.43,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              
+              return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Container(
@@ -166,7 +210,7 @@ Future<void> fetchRecomonde() async {
             ],
           ),
         ),
-      ),
-    );
-  }
+      ));
+    });
+    }
 }

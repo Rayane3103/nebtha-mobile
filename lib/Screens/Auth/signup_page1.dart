@@ -93,7 +93,7 @@ class _SignUp1State extends State<SignUp1> {
             ),
             const Text(
               '   Créer votre compte Nebtha',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white,fontSize: 20),
             ),
           ],
         ),

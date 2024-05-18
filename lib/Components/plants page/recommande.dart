@@ -30,7 +30,7 @@ class _RecommandationState extends State<Recommandation> {
             padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
             child: Text(
               'recommandé',
-              style: TextStyle(color: Color.fromARGB(255, 0, 146, 49), fontSize: 14),
+              style: TextStyle(color: Color.fromARGB(255, 0, 146, 49), fontSize: 13),
             ),
           )
         ],

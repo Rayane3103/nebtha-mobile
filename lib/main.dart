@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/Auth/login_page.dart';
 import 'package:nebtha/Screens/Auth/signup_page1.dart';
 import 'package:nebtha/Screens/Auth/signup_page2.dart';
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-     
+     theme: ThemeData(
+        primaryColor:primaryColor, // Set the primary color to green
+      ),
       initialRoute: '/', 
       routes: {
         '/': (context) => const LoginPage(),

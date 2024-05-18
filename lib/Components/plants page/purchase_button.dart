@@ -7,13 +7,11 @@ class PurchaseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap:(){print('added to cart');} , // Trigger the callback function
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 7, 0, 0),
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(7, 7, 0, 0),
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.33,
-          height: MediaQuery.of(context).size.height * 0.034,
+          width: MediaQuery.of(context).size.width * 0.32,
+          height: MediaQuery.of(context).size.height * 0.032,
           decoration: BoxDecoration(
             border: Border.all(
               color: primaryColor,
@@ -22,7 +20,7 @@ class PurchaseButton extends StatelessWidget {
             color: Colors.white,
           ),
           child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.shopping_bag_outlined,
@@ -31,12 +29,12 @@ class PurchaseButton extends StatelessWidget {
               ),
               Text(
                 'Ajouter au panier',
-                style: TextStyle(fontSize: 13, color: primaryColor),
+                style: TextStyle(fontSize: 10, color: primaryColor),
               ),
             ],
           ),
         ),
-      ),
+      
     );
   }
 }

@@ -9,16 +9,18 @@ import 'package:nebtha/Constants/design.dart';
 import 'package:nebtha/Screens/description_page.dart';
 
 class ProductCard extends StatefulWidget {
-  const ProductCard({super.key, required this.reco, required this.ProductName, required this.ProductArabicName, required this.Productdesc, required this.Price, required this.Image, required this.color,  // Step 1: Add callback function
+  const ProductCard({super.key, required this.reco, required this.ProductName, required this.ProductArabicName, required this.Productdesc, required this.Price, required this.Image, required this.color, this.onPurchase, required this.Propriete,
 });
   final String ProductName;
   final String Image;
   final String ProductArabicName;
   final String Productdesc;
+  final List<String> Propriete;
   final int Price;
   final bool reco;
   final Color color;
-     // Step 1: Callback function declaration
+    final VoidCallback? onPurchase;
+
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -66,7 +68,7 @@ class _ProductCardState extends State<ProductCard> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return const DescriptionPage();
+                                    return  DescriptionPage(ProductName: widget.ProductName, Price: widget.Price, Image: widget.Image, Productdesc: widget.Productdesc, Propriete: widget.Propriete,);
                                   }),
                                 );
                               },
@@ -75,16 +77,24 @@ class _ProductCardState extends State<ProductCard> {
                         ],
                       ),
                     ),
-                    Image.memory(
-                      height: 100,
-                      width: 150,
-                      bytes,
+                    InkWell(
+                      onTap:() => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return  DescriptionPage(ProductName: widget.ProductName, Price: 0, Image: widget.Image, Productdesc: widget.Productdesc, Propriete:widget.Propriete,);
+                                  }),
+                                ),
+                      child: Image.memory(
+                        height: 90,
+                        width: 150,
+                        bytes,
+                      ),
                     ),
                   ],
                 ),
               ),
                Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 5, 0, 0),
+                padding: const EdgeInsets.fromLTRB(12.0, 3, 0, 0),
                 child: Text(
                   widget.ProductName,
                   style: const TextStyle(
@@ -107,7 +117,7 @@ class _ProductCardState extends State<ProductCard> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return const DescriptionPage();
+                      return  DescriptionPage(ProductName: widget.ProductName, Price: 0, Image: widget.Image, Productdesc: widget.Productdesc, Propriete:widget.Propriete,);
                     }),
                   );
                 },
@@ -123,8 +133,12 @@ class _ProductCardState extends State<ProductCard> {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        _truncateText(widget.Productdesc,6),
+        widget.Productdesc,
+        // _truncateText(widget.Productdesc,6),
+         maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
         style: TextStyle(
+          
           fontSize: 12,
           color: Colors.grey[600],
         ),
@@ -134,6 +148,7 @@ class _ProductCardState extends State<ProductCard> {
         },
         child: const Text(
           'plus de details',
+          
           style: TextStyle(
             color: Color.fromARGB(255, 39, 39, 39),
             fontSize: 13,
@@ -163,11 +178,20 @@ class _ProductCardState extends State<ProductCard> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.005,
               ),
-               const Row(
+                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PurchaseButton(),
-                  Padding(
+                  InkWell(
+        onTap: () {
+          if (widget.onPurchase != null) {
+            print('added to cart');
+            widget.onPurchase!();
+          }
+          else{print('widget.onPurshase is null');}
+        },
+        child:
+                  Container(child: const PurchaseButton()),),
+                  const Padding(
                     padding: EdgeInsets.fromLTRB(0, 7.5, 5, 0),
                     child: LikeButton(),
                   )

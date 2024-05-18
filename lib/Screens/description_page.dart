@@ -1,11 +1,19 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:nebtha/Components/plants%20page/like_button.dart';
 import 'package:nebtha/Components/plants%20page/purchase_text_button.dart';
 import 'package:nebtha/Constants/design.dart';
 
 class DescriptionPage extends StatefulWidget {
+    final String ProductName;
+    final String Productdesc;
+  final List<String> Propriete;
+    final int Price;
+    final String Image;
   const DescriptionPage({
-    super.key,
+    super.key, required this.ProductName, required this.Price, required this.Image, required this.Productdesc, required this.Propriete,
   });
   @override
   State<DescriptionPage> createState() => _DescriptionPageState();
@@ -15,85 +23,69 @@ class _DescriptionPageState extends State<DescriptionPage> {
   double size = 15.0;
   @override
   Widget build(BuildContext context) {
+        Uint8List bytes = base64Decode(widget.Image.split(',').last);
+
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            SizedBox(width: MediaQuery.of(context).size.width * 0.215),
-            Image.asset(
-              'assets/logo1.png',
-              scale: 2.5,
-            ),
-          ],
-        ),
+      body: Stack(children: [Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 75,),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width*1,
+           child:Image.memory(bytes,height: 150,width: 150,)
+          ),
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 13, 0, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Center(
-              child: Image.asset(
-                "assets/11.png",
-                scale: 0.5,
-              ),
-            ),
-            //-----------------------------------------------------------------------------------------------
-            Container(
-              height: MediaQuery.of(context).size.height * 0.45,
-              width: MediaQuery.of(context).size.width * 1,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(22),
-                      topRight: Radius.circular(22)),
+      DraggableScrollableSheet(
+            initialChildSize: 0.5,
+            minChildSize: 0.5,
+            maxChildSize: 0.6,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return Container(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade500,
-                        blurRadius: 15,
-                        spreadRadius: 4,
-                        offset: const Offset(0, -1)),
-                  ]),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'menthe ',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: primaryColor),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  border: BorderDirectional(
+                    top: BorderSide(
+                      color: primaryColor,
+                      width: 2.0,
                     ),
-                    const Text(
-                        'Mints are aromatic, almost exclusively perennial herbs. They have wide-spreading underground and overground stolons and erect, square, branched stems. Mints will grow 10–120 cm (4–48 inches) tall and can spread over an indeterminate area. Due to their tendency to spread unchecked, some mints are considered invasive.The leaves are arranged in opposite pairs, from oblong to lanceolate, often downy, and with a serrated margin. Leaf colors range from dark green and gray-green to purple, blue, and sometimes pale yellow.The flowers are produced in long bracts from leaf axils.They are white to purple and produced in false whorls called verticillasters. The corolla is two-lipped with four subequal lobes, the upper lobe usually the largest. The fruit is a nutlet, containing one to four seeds.'),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                ),
+                child: ListView(
+                  controller: scrollController,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.ProductName, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: primaryColor)),
+                          const SizedBox(height: 10),
+                          Text(widget.Productdesc, style: const TextStyle(fontSize: 16)),
+                          const SizedBox(height: 10),
+                          const Text('Properties:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          ...widget.Propriete.map((prop) => Text('- $prop', style: const TextStyle(fontSize: 16))),
+                          const SizedBox(height: 10),
+                          // Text('Price: \$${widget.Price}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          // You can add your LikeButton and PurchaseTextButton here
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ),
-            //-----------------------------------------------------------------------------------------------
-            Container(
-              height: MediaQuery.of(context).size.height * 0.09494,
-              width: MediaQuery.of(context).size.width * 1,
-              color: Colors.white,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  PurchaseTextButton(),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(23.0, 0, 25, 0),
-                    child: LikeButton(),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+              );
+            },
+          ),
+                ],)
+      
+      
+            
+          
+      );
+    
   }
 }

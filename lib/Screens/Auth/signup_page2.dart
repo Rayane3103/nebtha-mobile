@@ -84,7 +84,7 @@ class _SignUp2State extends State<SignUp2> {
             ),
             const Text(
               '   Créer votre compte Nebtha',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white,fontSize: 20),
             )
           ],
         ),
@@ -131,7 +131,7 @@ class _SignUp2State extends State<SignUp2> {
                               Flexible(
                                 flex: 1,
                                 child: SizedBox(
-                                  width: 160,
+                                  width: 150,
                                   child: Dropyy(
                                     hintText: 'Relative',
                                     dropItems: droppyItems1,
@@ -146,7 +146,7 @@ class _SignUp2State extends State<SignUp2> {
                               Flexible(
                                 flex: 1,
                                 child: SizedBox(
-                                  width: 160,
+                                  width: 140,
                                   child: Dropyy(
                                     hintText: 'Gender',
                                     dropItems: droppyItems2,
@@ -173,7 +173,7 @@ class _SignUp2State extends State<SignUp2> {
                               Flexible(
                                 flex: 1,
                                 child: SizedBox(
-                                  width: 160,
+                                  width: 140,
                                   child: CustomTextField(
                                     labelText: 'Height (cm)',
                                     keyboardType: TextInputType.number,
@@ -184,7 +184,7 @@ class _SignUp2State extends State<SignUp2> {
                               Flexible(
                                 flex: 1,
                                 child: SizedBox(
-                                  width: 160,
+                                  width: 140,
                                   child: CustomTextField(
                                     labelText: 'Weight (Kg)',
                                     keyboardType: TextInputType.number,

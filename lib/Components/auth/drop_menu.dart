@@ -27,7 +27,7 @@ class Dropyy extends StatelessWidget {
           onChanged?.call(value!); // Invoke the onChanged callback with the selected value
         },
         decoration: InputDecoration(
-            contentPadding:  const EdgeInsets.all(14),
+            contentPadding:  const EdgeInsets.all(10),
             focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: const BorderSide(width: 2,color: primaryColor)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
