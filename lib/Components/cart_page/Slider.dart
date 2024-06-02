@@ -6,8 +6,9 @@ import 'package:slide_to_act/slide_to_act.dart';
 class MySlider extends StatefulWidget {
   final int totalPrice;
    final Map<String, dynamic> profileData;
+  final List<Map<String, dynamic>> selectedProducts;
 
-  const MySlider({super.key, required this.totalPrice, required this.profileData});
+  const MySlider({super.key, required this.totalPrice, required this.profileData, required this.selectedProducts});
 
   @override
   State<MySlider> createState() => _MySliderState();
@@ -39,7 +40,7 @@ class _MySliderState extends State<MySlider> {
 Navigator.push<void>(
     context,
     MaterialPageRoute<void>(
-      builder: (BuildContext context) =>  OrderPage(totalPrice: widget.totalPrice, profileData: widget.profileData,),
+      builder: (BuildContext context) =>  OrderPage(totalPrice: widget.totalPrice, profileData: widget.profileData,selectedProducts: widget.selectedProducts),
     ),
   );
 return null;            },
@@ -106,7 +107,7 @@ class MyButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(color),
+        backgroundColor: WidgetStateProperty.all<Color>(color),
       ),
       child: Text(
         myText,

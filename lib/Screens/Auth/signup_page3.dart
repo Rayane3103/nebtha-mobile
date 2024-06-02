@@ -266,7 +266,6 @@ Future<Map<String, dynamic>?> FetchProfile(String profileId, String token) async
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
                               onPressed: () async {
-                                if (maladieCroniqueIndices.isNotEmpty) {
                                   print('Selected Options: $maladieCroniqueIndices');
                                   await signUp(); 
         //                           Navigator.pushNamedAndRemoveUntil(
@@ -275,13 +274,7 @@ Future<Map<String, dynamic>?> FetchProfile(String profileId, String token) async
         //   (route) => false,
         //   // arguments: profileResponse, // Pass the profile data here
         // );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Please select at least one option.'),
-                                    ),
-                                  );
-                                }
+                                
                               },
                               child:  isLoading
                                   ? const CircularProgressIndicator(color: Colors.white)

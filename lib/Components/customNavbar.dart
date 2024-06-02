@@ -10,6 +10,7 @@ import 'package:nebtha/Screens/mode_emploi.dart';
 import 'package:nebtha/Screens/parametre.dart';
 import 'package:nebtha/Screens/plantsPage.dart';
 import 'package:nebtha/Screens/profile_page.dart';
+import 'package:nebtha/Screens/qr_scanner.dart';
 import 'package:nebtha/Screens/welcome_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:nebtha/Services/auth_account.dart';
@@ -161,10 +162,7 @@ widget.profileData['fullname'],                          style: const TextStyle(
                     ],
                   )),
             ),
-            const ListTile(
-                leading: Icon(Icons.person_outline_rounded),
-                title: Text('Mon Profile'),
-                ),
+           
             const ListTile(
                 leading: Icon(Icons.favorite_border),
                 title: Text('J\'aime'),
@@ -173,9 +171,15 @@ widget.profileData['fullname'],                          style: const TextStyle(
                 leading: Icon(Icons.history),
                 title: Text('Historique d\'achat'),
                 ),
-            const ListTile(
-                leading: Icon(Icons.qr_code),
-                title: Text('Mode d\'utilisation'),
+             ListTile(
+              onTap: (){Navigator.push<void>(
+    context,
+    MaterialPageRoute<void>(
+      builder: (BuildContext context) => const MyScanQr(),
+    ),
+  );},
+                leading: const Icon(Icons.qr_code),
+                title: const Text('Mode d\'utilisation'),
                 ),
             const ListTile(
                 leading: Icon(Icons.settings),
